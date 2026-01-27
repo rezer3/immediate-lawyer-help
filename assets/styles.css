@@ -137,9 +137,9 @@ a:hover{opacity:.92}
 .navMoreSummary::-webkit-details-marker{display:none}
 .navMore[open] .navMoreSummary{background:#fff; border:1px solid var(--line)}
 .navMoreMenu{
-  position: fixed;              /* key change */
-  top: var(--navMoreTop, 0px);  /* we set via JS */
-  left: var(--navMoreLeft, 0px);
+  position: fixed;
+  top: 0;
+  left: 0;
   min-width: calc(var(--navMoreWidth) * 1px);
   background:#fff;
   border:1px solid var(--line);

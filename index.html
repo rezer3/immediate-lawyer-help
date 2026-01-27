@@ -54,7 +54,7 @@
 
         <details class="navMore">
           <summary class="navItem navMoreSummary">More</summary>
-          <div class="navMoreMenu">
+          <div class="navMoreMenu" id="navMoreMenu">
             <a href="/tax/">Tax</a>
             <a href="/bankruptcy/">Bankruptcy</a>
             <a href="/mass-tort/">Mass Tort</a>
@@ -350,46 +350,72 @@
 <script>
   const navMore = document.querySelector(".navMore");
   const navMoreSummary = document.querySelector(".navMoreSummary");
+  const navMoreMenu = document.getElementById("navMoreMenu");
+
+  let menuHome = null;
+  let menuNextSibling = null;
+
+  function portalMenuToBody() {
+    if (!navMoreMenu || navMoreMenu.parentElement === document.body) return;
+    menuHome = navMoreMenu.parentElement;
+    menuNextSibling = navMoreMenu.nextSibling;
+    document.body.appendChild(navMoreMenu);
+  }
+
+  function returnMenuHome() {
+    if (!navMoreMenu || !menuHome) return;
+    if (menuNextSibling && menuNextSibling.parentNode === menuHome) {
+      menuHome.insertBefore(navMoreMenu, menuNextSibling);
+    } else {
+      menuHome.appendChild(navMoreMenu);
+    }
+    menuHome = null;
+    menuNextSibling = null;
+  }
 
   function positionNavMoreMenu() {
-  if (!navMore || !navMoreSummary) return;
+    if (!navMore || !navMoreSummary || !navMoreMenu) return;
 
-  const r = navMoreSummary.getBoundingClientRect();
+    const r = navMoreSummary.getBoundingClientRect();
+    const menuW =
+      parseInt(
+        getComputedStyle(document.documentElement).getPropertyValue("--navMoreWidth"),
+        10
+      ) || 280;
 
-  const menuW =
-    parseInt(
-      getComputedStyle(document.documentElement)
-        .getPropertyValue("--navMoreWidth"),
-      10
-    ) || 280;
+    const top = Math.round(r.bottom + 8);
+    const left = Math.round(Math.min(r.right - menuW, window.innerWidth - 12 - menuW));
 
-  const top = Math.round(r.bottom + 8);
-  const left = Math.round(
-    Math.min(r.right - menuW, window.innerWidth - 12 - menuW)
-  );
-
-  document.documentElement.style.setProperty("--navMoreTop", top + "px");
-  document.documentElement.style.setProperty(
-    "--navMoreLeft",
-    Math.max(12, left) + "px"
-  );
-}
+    navMoreMenu.style.top = top + "px";
+    navMoreMenu.style.left = Math.max(12, left) + "px";
+  }
 
   navMore?.addEventListener("toggle", () => {
-    if (navMore.hasAttribute("open")) positionNavMoreMenu();
+    if (navMore.hasAttribute("open")) {
+      portalMenuToBody();
+      positionNavMoreMenu();
+    } else {
+      returnMenuHome();
+    }
   });
 
   window.addEventListener("resize", () => {
     if (navMore?.hasAttribute("open")) positionNavMoreMenu();
   });
 
-  window.addEventListener("scroll", () => {
-    if (navMore?.hasAttribute("open")) positionNavMoreMenu();
-  }, true);
+  window.addEventListener(
+    "scroll",
+    () => {
+      if (navMore?.hasAttribute("open")) positionNavMoreMenu();
+    },
+    true
+  );
 
   document.addEventListener("click", (e) => {
     if (!navMore) return;
-    if (!navMore.contains(e.target)) navMore.removeAttribute("open");
+    if (!navMore.contains(e.target) && !navMoreMenu?.contains(e.target)) {
+      navMore.removeAttribute("open");
+    }
   });
 </script>
   <script>
