@@ -15,6 +15,7 @@
   --font-serif: "Source Serif 4", ui-serif, Georgia, "Times New Roman", serif;
 }
 
+
 *{box-sizing:border-box}
 html,body{height:100%}
 body{
@@ -34,7 +35,7 @@ a:hover{opacity:.92}
   padding:0 18px;
 }
 
-/* Top strip */
+/* Top strip. */
 .topStrip{
   background:#ffffff;
   border-bottom:1px solid var(--line);
