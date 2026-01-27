@@ -347,8 +347,46 @@
 
     document.getElementById("year").textContent = new Date().getFullYear();
   </script>
-  <script>
+<script>
   const navMore = document.querySelector(".navMore");
+  const navMoreSummary = document.querySelector(".navMoreSummary");
+
+  function positionNavMoreMenu() {
+  if (!navMore || !navMoreSummary) return;
+
+  const r = navMoreSummary.getBoundingClientRect();
+
+  const menuW =
+    parseInt(
+      getComputedStyle(document.documentElement)
+        .getPropertyValue("--navMoreWidth"),
+      10
+    ) || 280;
+
+  const top = Math.round(r.bottom + 8);
+  const left = Math.round(
+    Math.min(r.right - menuW, window.innerWidth - 12 - menuW)
+  );
+
+  document.documentElement.style.setProperty("--navMoreTop", top + "px");
+  document.documentElement.style.setProperty(
+    "--navMoreLeft",
+    Math.max(12, left) + "px"
+  );
+}
+
+  navMore?.addEventListener("toggle", () => {
+    if (navMore.hasAttribute("open")) positionNavMoreMenu();
+  });
+
+  window.addEventListener("resize", () => {
+    if (navMore?.hasAttribute("open")) positionNavMoreMenu();
+  });
+
+  window.addEventListener("scroll", () => {
+    if (navMore?.hasAttribute("open")) positionNavMoreMenu();
+  }, true);
+
   document.addEventListener("click", (e) => {
     if (!navMore) return;
     if (!navMore.contains(e.target)) navMore.removeAttribute("open");
