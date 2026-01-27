@@ -450,3 +450,10 @@ a:hover{opacity:.92}
   .headerPhone{display:none}
   .footerCols{grid-template-columns:1fr}
 }
+.heroBg {
+  transition: opacity 0.6s ease;
+}
+
+.heroBg.fade {
+  opacity: 0;
+}
