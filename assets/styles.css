@@ -61,10 +61,10 @@ a:hover{opacity:.92}
   gap:16px;
 }
 .brand{
-  font-family: ui-serif, Georgia, "Times New Roman", Times, serif;
-  font-weight:700;
-  font-size:28px;
-  letter-spacing:.2px;
+  font-family: var(--font-sans);
+  font-weight: 800;
+  font-size: 26px;
+  letter-spacing: -0.02em;
 }
 .brandDot{opacity:.55; font-weight:600}
 .headerActions{
@@ -86,12 +86,20 @@ a:hover{opacity:.92}
   background:var(--nav);
   border-top:1px solid var(--line);
 }
+.navRowB { overflow: visible; }
+.navMore { position: relative; z-index: 50; }
+.navMoreMenu { z-index: 60; }
 .navInner{
   display:flex;
   align-items:center;
   gap:14px;
   padding:10px 0;
-  overflow:auto;
+
+  /* allow horizontal scroll for long menus */
+  overflow-x:auto;
+
+  /* but don't clip dropdowns */
+  overflow-y:visible;
 }
 .navItem{
   white-space:nowrap;
@@ -168,7 +176,9 @@ a:hover{opacity:.92}
   backdrop-filter: blur(6px);
 }
 .heroCard h1{
-  font-family: ui-serif, Georgia, "Times New Roman", Times, serif;
+  font-family: var(--font-sans);
+  font-weight: 800;
+  letter-spacing: -0.02em;
   font-size:46px;
   line-height:1.05;
   margin:0 0 10px;
@@ -384,9 +394,10 @@ a:hover{opacity:.92}
   gap:14px;
 }
 .ctaBandTitle{
-  font-family: ui-serif, Georgia, "Times New Roman", Times, serif;
+  font-family: var(--font-sans);
   font-size:26px;
   font-weight:800;
+  letter-spacing:-0.02em;
 }
 .ctaBandSub{opacity:.88; margin-top:4px}
 
