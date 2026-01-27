@@ -347,6 +347,13 @@
     document.getElementById("year").textContent = new Date().getFullYear();
   </script>
   <script>
+  const navMore = document.querySelector(".navMore");
+  document.addEventListener("click", (e) => {
+    if (!navMore) return;
+    if (!navMore.contains(e.target)) navMore.removeAttribute("open");
+  });
+</script>
+  <script>
   const heroImages = [
     "https://images.unsplash.com/photo-1521791136064-7986c2920216?auto=format&fit=crop&w=2000&q=60",
     "https://images.unsplash.com/photo-1524492412937-b28074a5d7da?auto=format&fit=crop&w=2000&q=60",

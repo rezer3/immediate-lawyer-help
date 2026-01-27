@@ -86,9 +86,11 @@ a:hover{opacity:.92}
   background:var(--nav);
   border-top:1px solid var(--line);
 }
+
 .navRowB { overflow: visible; }
 .navMore { position: relative; z-index: 50; }
 .navMoreMenu { z-index: 60; }
+
 .navInner{
   display:flex;
   align-items:center;
