@@ -543,9 +543,21 @@ a:hover{opacity:.92}
   font-size: 13px;
   line-height: 1.35;
 }
-
+/* make the rail feel full-bleed while keeping section title aligned */
+.categoryRail{
+  margin-left: calc(50% - 50vw);
+  margin-right: calc(50% - 50vw);
+  padding-left: max(18px, calc(50vw - (var(--container) / 2) + 18px));
+  padding-right: 18px;
+}
 /* On larger screens show slightly wider cards */
 @media (min-width: 980px){
   .catCard{ flex-basis: 300px; }
   .catImg{ height: 140px; }
+}
+@media (min-width: 1200px){
+  :root{ --container: 1280px; }
+}
+@media (min-width: 1500px){
+  :root{ --container: 1400px; }
 }
