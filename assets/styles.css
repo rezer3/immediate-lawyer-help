@@ -155,48 +155,48 @@ a:hover{opacity:.92}
 }
 .navItem{
   position: relative;
-  padding: 5px 9px;
-  border-radius: 10px;
-  color: var(--text);
-  transition: color .15s ease;
-  white-space: nowrap;
-  font-size: 13.5px;
-}
-/* Animated underline that expands from center */
-.navItem{
-  position: relative;
+  display: inline-block;   /* IMPORTANT for underline width */
   padding: 6px 9px;
   border-radius: 10px;
   color: var(--text);
   white-space: nowrap;
   font-size: 13.5px;
 }
+.navItem{
+  padding: 6px 9px;        /* keep click area */
+  border-radius: 10px;
+  color: var(--text);
+  white-space: nowrap;
+  font-size: 13.5px;
+  display: inline-flex;
+  align-items: center;
+}
 
-.navItem::after{
+.navLabel{
+  position: relative;
+  display: inline-block;   /* width = text only */
+}
+
+.navLabel::after{
   content:"";
   position:absolute;
-  left:50%;
-  right:50%;
+  left:0;
   bottom:-6px;
-  height:4px;                 /* thicker */
-  background:#163d6e;         /* footer blue */
-  border-radius:4px;          /* squared, confident */
+  width:100%;              /* EXACT word width */
+  height:4px;
+  background:#12345f;      /* footer blue */
+  border-radius:4px;
+  transform: scaleX(0);
+  transform-origin:center;
   opacity:0;
-  transition: left .16s ease, right .16s ease, opacity .16s ease;
+  transition: transform .16s ease, opacity .16s ease;
   pointer-events:none;
 }
 
-.navItem:hover::after{
-  left:10%;
-  right:10%;
+.navItem:hover .navLabel::after,
+.navItem.isActive .navLabel::after{
   opacity:1;
-}
-
-.navItem.isActive::after{
-  left:10%;
-  right:10%;
-  opacity:1;
-  background: rgba(15,23,42,.85);
+  transform: scaleX(1);
 }
 
 .navItem.active{
