@@ -102,6 +102,7 @@
 
           <section class="piSection" id="car-accident">
             <h3 class="piH"><a href="/personal-injury/car-accident/" class="piTitleLink">Car Accident</a></h3>
+            <div class="piImage"><img src="https://images.unsplash.com/photo-1503376780353-7e6692767b70" alt="" loading="lazy" /></div>
             <p class="guideMeta piBlurb">
               Injuries from collisions involving passenger vehicles, including rear-end crashes, intersection accidents, and hit-and-run incidents.
               These cases often involve questions about fault, insurance coverage, and documentation like photos, medical records, and crash reports.
@@ -112,6 +113,7 @@
 
           <section class="piSection" id="truck-accident">
             <h3 class="piH"><a href="/personal-injury/truck-accident/" class="piTitleLink">Truck Accident</a></h3>
+            <div class="piImage"><img src="https://images.unsplash.com/photo-1517677208171-0bc6725a3e60" alt="" loading="lazy" /></div>
             <p class="guideMeta piBlurb">
               Accidents involving commercial trucks or tractor-trailers, often with serious injuries due to size and weight differences.
               These matters can involve multiple responsible parties, such as drivers, trucking companies, maintenance providers, or cargo handlers.
@@ -122,6 +124,7 @@
 
           <section class="piSection" id="motorcycle-accident">
             <h3 class="piH"><a href="/personal-injury/motorcycle-accident/" class="piTitleLink">Motorcycle Accident</a></h3>
+            <div class="piImage"><img src="https://images.unsplash.com/photo-1500530855697-b586d89ba3ee" alt="" loading="lazy" /></div>
             <p class="guideMeta piBlurb">
               Crashes involving motorcycles, including situations where riders are struck by vehicles or injured by road hazards.
               Because riders have less protection, injuries can be severe even at lower speeds.
@@ -132,6 +135,7 @@
 
           <section class="piSection" id="bicycle-accident">
             <h3 class="piH"><a href="/personal-injury/bicycle-accident/" class="piTitleLink">Bicycle Accident</a></h3>
+            <div class="piImage"><img src="https://images.unsplash.com/photo-1508609349937-5ec4ae374ebf" alt="" loading="lazy" /></div>
             <p class="guideMeta piBlurb">
               Injuries while cycling, commonly involving motor vehicles, unsafe road conditions, or failure to yield.
               These incidents may happen in bike lanes, at intersections, or when doors open into a rider’s path.
@@ -142,6 +146,7 @@
 
           <section class="piSection" id="pedestrian-accident">
             <h3 class="piH"><a href="/personal-injury/pedestrian-accident/" class="piTitleLink">Pedestrian Accident</a></h3>
+            <div class="piImage"><img src="https://images.unsplash.com/photo-1520975916090-3105956dac38" alt="" loading="lazy" /></div>
             <p class="guideMeta piBlurb">
               Cases where a pedestrian is injured by a vehicle, frequently occurring at crosswalks, intersections, or parking areas.
               Liability can depend on signals, right-of-way, visibility, and driver attention, as well as the pedestrian’s position and movement.
@@ -152,6 +157,7 @@
 
           <section class="piSection" id="slip-and-fall">
             <h3 class="piH"><a href="/personal-injury/slip-and-fall/" class="piTitleLink">Slip &amp; Fall</a></h3>
+            <div class="piImage"><img src="https://images.unsplash.com/photo-1581578731548-c64695cc6952" alt="" loading="lazy" /></div>
             <p class="guideMeta piBlurb">
               Injuries caused by hazardous property conditions such as wet floors, uneven surfaces, poor lighting, or missing warnings.
               These cases often focus on whether the property owner knew (or should have known) about the condition and had time to address it.
@@ -162,6 +168,7 @@
 
           <section class="piSection" id="dog-bite">
             <h3 class="piH"><a href="/personal-injury/dog-bite/" class="piTitleLink">Dog Bite / Animal Attack</a></h3>
+            <div class="piImage"><img src="https://images.unsplash.com/photo-1518717758536-85ae29035b6d" alt="" loading="lazy" /></div>
             <p class="guideMeta piBlurb">
               Injuries resulting from dog bites or animal attacks, including situations involving negligent owners or unsecured animals.
               Issues can include local rules, prior incidents, leash requirements, and whether the animal was properly contained.
@@ -203,12 +210,15 @@
   <style>
     /* Small page-specific polish, aligned with existing theme */
     .piSection{
-      padding: 14px 0;
+      padding: 18px 0;
       border-top: 1px solid rgba(255,255,255,.06);
     }
-    .piSection:first-of-type{
+.piSection:first-of-type{
       border-top: 0;
       padding-top: 10px;
+    }
+    .piSection:not(:last-child){
+      margin-bottom: 12px;
     }
     .piH{
       margin: 0;
@@ -236,6 +246,26 @@
       text-decoration: underline;
     }
   </style>
+
+  <style>
+    .piImage{
+      margin: 12px 0 16px;
+      border-radius: 14px;
+      overflow: hidden;
+      max-width: 100%;
+    }
+    .piImage img{
+      width: 100%;
+      height: 140px;
+      object-fit: cover;
+      display: block;
+      filter: saturate(.9) contrast(.95);
+    }
+    @media (max-width: 768px){
+      .piImage img{ height: 110px; }
+    }
+  </style>
+
 
 <footer class="footer">
     <div class="container footerTop">
@@ -415,5 +445,65 @@ function step(now) {
   setInterval(rotateHeroImage, 15000);
 </script>
 
+<style>
+    /* Page-specific spacing + image polish (stronger specificity to beat shared styles) */
+    .piArticle .piSection{
+      padding: 26px 0 !important;
+      border-top: 1px solid rgba(255,255,255,.06) !important;
+    }
+    .piArticle .piSection:first-of-type{
+      border-top: 0 !important;
+      padding-top: 14px !important;
+    }
+    .piArticle .piSection:not(:last-child){
+      margin-bottom: 18px !important;
+    }
+
+    .piArticle .piH{
+      margin: 0 !important;
+      font-size: 18px !important;
+      letter-spacing: -0.01em;
+    }
+    .piArticle .piTitleLink{
+      text-decoration: none;
+    }
+    .piArticle .piTitleLink:hover{
+      text-decoration: underline;
+    }
+
+    .piArticle .piImage{
+      margin: 12px 0 18px !important;
+      border-radius: 14px;
+      overflow: hidden;
+      max-width: 100%;
+    }
+    .piArticle .piImage img{
+      width: 100%;
+      height: 140px;
+      object-fit: cover;
+      display: block;
+      filter: saturate(.9) contrast(.95);
+    }
+    @media (max-width: 768px){
+      .piArticle .piImage img{ height: 110px; }
+    }
+
+    .piArticle .piBlurb{
+      margin-top: 10px !important;
+      line-height: 1.7 !important;
+      max-width: 78ch;
+    }
+
+    .piArticle .piLearn{
+      display: inline-block;
+      margin-top: 12px !important;
+      margin-bottom: 4px !important; /* creates breathing room before next heading */
+      text-decoration: none;
+      font-weight: 600;
+    }
+    .piArticle .piLearn:hover{
+      text-decoration: underline;
+    }
+  </style>
 </body>
 </html>
