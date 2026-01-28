@@ -485,3 +485,67 @@ a:hover{opacity:.92}
 .heroBg.fade {
   opacity: 0;
 }
+/* Category rail (horizontal scrolling cards) */
+.categoryRail{
+  display:flex;
+  gap:14px;
+  overflow-x:auto;
+  padding: 6px 2px 14px;
+  scroll-snap-type: x mandatory;
+  -webkit-overflow-scrolling: touch;
+}
+
+.categoryRail::-webkit-scrollbar{ height: 10px; }
+.categoryRail::-webkit-scrollbar-thumb{
+  background: rgba(19,34,53,.18);
+  border-radius: 999px;
+}
+
+.catCard{
+  flex: 0 0 280px;              /* one column width */
+  scroll-snap-align: start;
+  background: var(--card);
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  box-shadow: 0 8px 22px rgba(0,0,0,.08);
+  overflow: hidden;
+  transition: transform .12s ease;
+}
+
+.catCard:hover{ transform: translateY(-2px); }
+
+.catImg{
+  height: 128px;
+  background-size: cover;
+  background-position: center;
+  position: relative;
+}
+
+.catImg::after{
+  content:"";
+  position:absolute;
+  inset:0;
+  background: linear-gradient(180deg, rgba(0,0,0,0) 35%, rgba(0,0,0,.22));
+}
+
+.catBody{
+  padding: 14px 14px 16px;
+}
+
+.catTitle{
+  font-weight: 900;
+  margin-bottom: 6px;
+  color: #1a2c41;
+}
+
+.catDesc{
+  color: var(--muted);
+  font-size: 13px;
+  line-height: 1.35;
+}
+
+/* On larger screens show slightly wider cards */
+@media (min-width: 980px){
+  .catCard{ flex-basis: 300px; }
+  .catImg{ height: 140px; }
+}
