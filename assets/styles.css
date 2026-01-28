@@ -138,18 +138,45 @@ a:hover{opacity:.92}
   gap:14px;
   padding:10px 0;
 
-  /* allow horizontal scroll for long menus */
   overflow-x:auto;
-
-  /* but don't clip dropdowns */
   overflow-y:visible;
+
+  white-space: nowrap;          /* prevent wrapping */
+  flex-wrap: nowrap;            /* keep items on one row */
+}
+/* Hide nav scrollbar but keep horizontal scroll */
+.navInner{
+  scrollbar-width: none;        /* Firefox */
+  -ms-overflow-style: none;     /* IE / old Edge */
+}
+
+.navInner::-webkit-scrollbar{
+  display: none;                /* Chrome / Safari */
 }
 .navItem{
-  white-space:nowrap;
-  font-size:14px;
-  color:#23374e;
-  padding:10px 10px;
-  border-radius:10px;
+  position: relative;
+    padding: 6px 10px;
+  border-radius: 10px;
+  color: var(--text);
+  transition: color .15s ease;
+  white-space: nowrap;          /* keep label on one line */
+}
+.navItem::after{
+  content:"";
+  position:absolute;
+  inset:-2px;                 /* creates space around text */
+  border:1px solid var(--line);
+  border-radius:12px;
+  opacity:0;
+  transition: opacity .15s ease;
+  pointer-events:none;
+}
+.navItem.isActive::after{
+  opacity:1;
+  border-color: var(--brand);
+}
+.navItem:hover::after{
+  opacity:1;
 }
 .navItem.active{
   background:#ffffff;
