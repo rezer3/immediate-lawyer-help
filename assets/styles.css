@@ -13,22 +13,31 @@
   src:url("/assets/fonts/Inter-italic.var.woff2") format("woff2");
 }
 :root{
+  /* Surfaces */
   --bg:#f6f7ff;
   --card:#ffffff;
-  --nav:#f1efff;
+  --nav:#f2efff;
 
+  /* Text */
   --text:#0f172a;
   --muted:#475569;
 
-  --line:rgba(79,70,229,.18);
-  --shadow:0 16px 44px rgba(15,23,42,.12);
+  /* Lines + shadows */
+  --line:rgba(76,29,149,.14);
+  --shadow: 0 14px 40px rgba(15,23,42,.12);
 
-  --brand:#4f46e5;
-  --btn:#4f46e5;
-  --btn2:#3730a3;
+  /* Brand */
+  --brand:#6d28d9;
+  --btn:#6d28d9;
+  --btn2:#4c1d95;
 
-  --radius:14px;
-  --container:1360px;
+  /* Layout */
+  --radius: 14px;
+  --container: 1360px;
+
+  /* Typography */
+  --font-sans: "Inter", ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  --navMoreWidth: 280;
 }
 
 
