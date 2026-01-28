@@ -380,25 +380,33 @@
   if (reduceMotion) return;
 
   rail.classList.add("isAuto");
+let isPaused = false;
+let last = performance.now();
+let carry = 0;                // <-- accumulates fractional pixels
+const pxPerSec = 30;          // you can go low now
 
-  let isPaused = false;
-  let last = performance.now();
-  const pxPerSec = 35; // increase to 50-70 if you want faster
+function step(now) {
+  const dt = (now - last) / 1000;
+  last = now;
 
-  function step(now) {
-    const dt = (now - last) / 1000;
-    last = now;
+  if (!isPaused) {
+    const maxScroll = rail.scrollWidth - rail.clientWidth;
 
-    if (!isPaused) {
-      const maxScroll = rail.scrollWidth - rail.clientWidth;
-      rail.scrollLeft += pxPerSec * dt;
-
-      // loop back to start
-      if (rail.scrollLeft >= maxScroll - 2) rail.scrollLeft = 0;
+    carry += pxPerSec * dt;
+    const dx = Math.floor(carry);   // only apply whole pixels
+    if (dx >= 1) {
+      rail.scrollLeft += dx;
+      carry -= dx;
     }
 
-    requestAnimationFrame(step);
+    if (rail.scrollLeft >= maxScroll - 2) {
+      rail.scrollLeft = 0;
+      carry = 0;
+    }
   }
+
+  requestAnimationFrame(step);
+}
 
   requestAnimationFrame(step);
 
