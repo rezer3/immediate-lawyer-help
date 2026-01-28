@@ -177,12 +177,12 @@ a:hover{opacity:.92}
   position:absolute;
   left:50%;
   right:50%;
-  bottom:-6px;                 /* sits just below the text */
-  height:2px;
-  background: rgba(15,23,42,.55);  /* serious ink, not blue */
-  border-radius:999px;
+  bottom:-6px;
+  height:4px;                 /* thicker */
+  background:#163d6e;         /* footer blue */
+  border-radius:4px;          /* squared, confident */
   opacity:0;
-  transition: left .18s ease, right .18s ease, opacity .18s ease;
+  transition: left .16s ease, right .16s ease, opacity .16s ease;
   pointer-events:none;
 }
 
