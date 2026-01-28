@@ -371,57 +371,58 @@
     document.getElementById("year").textContent = new Date().getFullYear();
   </script>
   <script>
+(() => {
   const rail = document.querySelector(".categoryRail");
-  if (rail) {
-    // Respect reduced-motion
-    const reduceMotion = window.matchMedia?.("(prefers-reduced-motion: reduce)")?.matches;
-    if (reduceMotion) return;
+  if (!rail) return;
 
-    rail.classList.add("isAuto");
+  // Respect reduced-motion
+  const reduceMotion = window.matchMedia?.("(prefers-reduced-motion: reduce)")?.matches;
+  if (reduceMotion) return;
 
-    let isPaused = false;
-    let last = performance.now();
-    const pxPerSec = 35; // speed (increase to 50-70 if you want faster)
+  rail.classList.add("isAuto");
 
-    function step(now) {
-      const dt = (now - last) / 1000;
-      last = now;
+  let isPaused = false;
+  let last = performance.now();
+  const pxPerSec = 35; // increase to 50-70 if you want faster
 
-      if (!isPaused) {
-        const maxScroll = rail.scrollWidth - rail.clientWidth;
-        rail.scrollLeft += pxPerSec * dt;
+  function step(now) {
+    const dt = (now - last) / 1000;
+    last = now;
 
-        // loop
-        if (rail.scrollLeft >= maxScroll - 2) rail.scrollLeft = 0;
-      }
+    if (!isPaused) {
+      const maxScroll = rail.scrollWidth - rail.clientWidth;
+      rail.scrollLeft += pxPerSec * dt;
 
-      requestAnimationFrame(step);
+      // loop back to start
+      if (rail.scrollLeft >= maxScroll - 2) rail.scrollLeft = 0;
     }
 
     requestAnimationFrame(step);
-
-    function pause() {
-      isPaused = true;
-      rail.classList.remove("isAuto"); // re-enable snap for manual scrolling feel
-    }
-    function resume() {
-      isPaused = false;
-      rail.classList.add("isAuto"); // disable snap again for autoplay
-    }
-
-    rail.addEventListener("mouseenter", pause);
-    rail.addEventListener("mouseleave", resume);
-    rail.addEventListener("touchstart", pause, { passive: true });
-    rail.addEventListener("touchend", resume, { passive: true });
-
-    // brief pause on wheel, then resume
-    let wheelTimer = null;
-    rail.addEventListener("wheel", () => {
-      pause();
-      clearTimeout(wheelTimer);
-      wheelTimer = setTimeout(resume, 900);
-    }, { passive: true });
   }
+
+  requestAnimationFrame(step);
+
+  function pause() {
+    isPaused = true;
+    rail.classList.remove("isAuto"); // allow snap while user interacts
+  }
+  function resume() {
+    isPaused = false;
+    rail.classList.add("isAuto");    // disable snap for autoplay
+  }
+
+  rail.addEventListener("mouseenter", pause);
+  rail.addEventListener("mouseleave", resume);
+  rail.addEventListener("touchstart", pause, { passive: true });
+  rail.addEventListener("touchend", resume, { passive: true });
+
+  let wheelTimer = null;
+  rail.addEventListener("wheel", () => {
+    pause();
+    clearTimeout(wheelTimer);
+    wheelTimer = setTimeout(resume, 900);
+  }, { passive: true });
+})();
 </script>
 <script>
   const navMore = document.querySelector(".navMore");
