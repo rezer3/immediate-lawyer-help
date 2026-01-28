@@ -373,30 +373,39 @@
   <script>
   const rail = document.querySelector(".categoryRail");
   if (rail) {
-    let dir = 1;                 // 1 = right, -1 = left
-    const pxPerTick = 0.35;      // speed (pixels per frame-ish)
-    const tickMs = 16;           // ~60fps
-
     let isPaused = false;
 
-    function step() {
-      if (!isPaused) {
-        rail.scrollLeft += dir * pxPerTick;
+    const speed = 0.8;          // px per tick (increase if you want faster)
+    const tickMs = 16;          // ~60fps
 
-        const maxScroll = rail.scrollWidth - rail.clientWidth;
-        if (rail.scrollLeft >= maxScroll - 2) dir = -1;
-        if (rail.scrollLeft <= 2) dir = 1;
+    function step() {
+      if (isPaused) return;
+
+      const maxScroll = rail.scrollWidth - rail.clientWidth;
+
+      rail.scrollLeft += speed;
+
+      // Loop back to start when we reach the end
+      if (rail.scrollLeft >= maxScroll - 2) {
+        rail.scrollLeft = 0;
       }
     }
 
-    const timer = setInterval(step, tickMs);
+    setInterval(step, tickMs);
 
-    // Pause on user interaction (so it doesn't fight them)
+    // Pause on user interaction so it doesn't fight them
     rail.addEventListener("mouseenter", () => (isPaused = true));
     rail.addEventListener("mouseleave", () => (isPaused = false));
     rail.addEventListener("touchstart", () => (isPaused = true), { passive: true });
     rail.addEventListener("touchend", () => (isPaused = false), { passive: true });
-    rail.addEventListener("wheel", () => (isPaused = true), { passive: true });
+
+    // Optional: pause briefly when the user scrolls the rail with a wheel
+    let wheelTimer = null;
+    rail.addEventListener("wheel", () => {
+      isPaused = true;
+      clearTimeout(wheelTimer);
+      wheelTimer = setTimeout(() => (isPaused = false), 900);
+    }, { passive: true });
   }
 </script>
 <script>

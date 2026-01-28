@@ -55,6 +55,11 @@ a:hover{opacity:.92}
   margin:0;
   padding:0 18px; /* match your normal container padding */
 }
+
+/* Nudge the Browse by Category heading to align nicer with the rail */
+.containerFluid .sectionTitle{
+  padding-left: 18px;
+}
 /* Top strip. */
 .topStrip{
   background:#ffffff;
