@@ -505,7 +505,10 @@ a:hover{opacity:.92}
   scroll-snap-type: x mandatory;
   -webkit-overflow-scrolling: touch;
 }
-
+/* Autoplay: turn off snap so JS can smoothly scroll */
+.categoryRail.isAuto {
+  scroll-snap-type: none;
+}
 .categoryRail::-webkit-scrollbar{ height: 10px; }
 .categoryRail::-webkit-scrollbar-thumb{
   background: rgba(19,34,53,.18);

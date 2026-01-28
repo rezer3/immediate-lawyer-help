@@ -373,38 +373,53 @@
   <script>
   const rail = document.querySelector(".categoryRail");
   if (rail) {
+    // Respect reduced-motion
+    const reduceMotion = window.matchMedia?.("(prefers-reduced-motion: reduce)")?.matches;
+    if (reduceMotion) return;
+
+    rail.classList.add("isAuto");
+
     let isPaused = false;
+    let last = performance.now();
+    const pxPerSec = 35; // speed (increase to 50-70 if you want faster)
 
-    const speed = 0.8;          // px per tick (increase if you want faster)
-    const tickMs = 16;          // ~60fps
+    function step(now) {
+      const dt = (now - last) / 1000;
+      last = now;
 
-    function step() {
-      if (isPaused) return;
+      if (!isPaused) {
+        const maxScroll = rail.scrollWidth - rail.clientWidth;
+        rail.scrollLeft += pxPerSec * dt;
 
-      const maxScroll = rail.scrollWidth - rail.clientWidth;
-
-      rail.scrollLeft += speed;
-
-      // Loop back to start when we reach the end
-      if (rail.scrollLeft >= maxScroll - 2) {
-        rail.scrollLeft = 0;
+        // loop
+        if (rail.scrollLeft >= maxScroll - 2) rail.scrollLeft = 0;
       }
+
+      requestAnimationFrame(step);
     }
 
-    setInterval(step, tickMs);
+    requestAnimationFrame(step);
 
-    // Pause on user interaction so it doesn't fight them
-    rail.addEventListener("mouseenter", () => (isPaused = true));
-    rail.addEventListener("mouseleave", () => (isPaused = false));
-    rail.addEventListener("touchstart", () => (isPaused = true), { passive: true });
-    rail.addEventListener("touchend", () => (isPaused = false), { passive: true });
+    function pause() {
+      isPaused = true;
+      rail.classList.remove("isAuto"); // re-enable snap for manual scrolling feel
+    }
+    function resume() {
+      isPaused = false;
+      rail.classList.add("isAuto"); // disable snap again for autoplay
+    }
 
-    // Optional: pause briefly when the user scrolls the rail with a wheel
+    rail.addEventListener("mouseenter", pause);
+    rail.addEventListener("mouseleave", resume);
+    rail.addEventListener("touchstart", pause, { passive: true });
+    rail.addEventListener("touchend", resume, { passive: true });
+
+    // brief pause on wheel, then resume
     let wheelTimer = null;
     rail.addEventListener("wheel", () => {
-      isPaused = true;
+      pause();
       clearTimeout(wheelTimer);
-      wheelTimer = setTimeout(() => (isPaused = false), 900);
+      wheelTimer = setTimeout(resume, 900);
     }, { passive: true });
   }
 </script>
