@@ -509,10 +509,14 @@ a:hover{opacity:.92}
 .categoryRail.isAuto {
   scroll-snap-type: none;
 }
-.categoryRail::-webkit-scrollbar{ height: 10px; }
-.categoryRail::-webkit-scrollbar-thumb{
-  background: rgba(19,34,53,.18);
-  border-radius: 999px;
+/* Hide scrollbar but keep scrollability */
+.categoryRail{
+  -ms-overflow-style: none;     /* IE / Edge */
+  scrollbar-width: none;        /* Firefox */
+}
+
+.categoryRail::-webkit-scrollbar{
+  display: none;                /* Chrome / Safari */
 }
 
 .catCard{
